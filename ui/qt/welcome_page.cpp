@@ -62,7 +62,7 @@ WelcomePage::WelcomePage(QWidget *parent) :
 
     welcome_ui_->captureSectionFilterComboBox->setEnabled(false);
 
-    welcome_ui_->titleSectionBannerLabel->setText(tr("Welcome to %1").arg(mainApp->applicationName()));
+    welcome_ui_->titleSectionBannerLabel->setText(tr("%1").arg(mainApp->applicationName()));
 
     updateStyleSheets();
     applySidebarPreferences();
@@ -482,8 +482,8 @@ void WelcomePage::updateStyleSheets()
                     "  padding: 0.25em;"
                     "}"
                     )
-                .arg("white") //   Text color
-                .arg("#2c4bc4"); // Background color. Matches capture start button.
+                .arg("#1e1e2e") //   Text color
+                .arg("#89b4fa"); // Background color. Matches capture start button.
         //            .arg(QColor(tango_butter_5).name());      // "Warning" background
 
         welcome_ui_->titleSectionFlavorLabel->setText(flavor_);

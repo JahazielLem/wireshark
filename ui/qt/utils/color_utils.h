@@ -37,6 +37,32 @@ public:
     static const QColor expert_color_error;      /* pale red */
     static const QColor expert_color_foreground; /* black */
     static const QColor hidden_proto_item;       /* gray */
+    static const QColor expert_color_ROSEWATER;
+    static const QColor expert_color_FLAMINGO;
+    static const QColor expert_color_PINK;
+    static const QColor expert_color_MAUVE;
+    static const QColor expert_color_RED;
+    static const QColor expert_color_MAROON;
+    static const QColor expert_color_PEACH;
+    static const QColor expert_color_YELLOW;
+    static const QColor expert_color_GREEN;
+    static const QColor expert_color_TEAL;
+    static const QColor expert_color_SKY;
+    static const QColor expert_color_SAPPHIRE;
+    static const QColor expert_color_BLUE;
+    static const QColor expert_color_LAVENDER;
+    static const QColor expert_color_TEXT;
+    static const QColor expert_color_SUBTEXT1;
+    static const QColor expert_color_SUBTEXT0;
+    static const QColor expert_color_OVERLAY2;
+    static const QColor expert_color_OVERLAY1;
+    static const QColor expert_color_OVERLAY0;
+    static const QColor expert_color_SURFACE2;
+    static const QColor expert_color_SURFACE1;
+    static const QColor expert_color_SURFACE0;
+    static const QColor expert_color_BASE;
+    static const QColor expert_color_MANTLE;
+    static const QColor expert_color_CRUST;
 
     static const QList<QRgb> graphColors();
     static QRgb graphColor(int item);

@@ -26,13 +26,46 @@
 // At some point we should probably make these configurable along with the
 // graph and sequence colors.
 
-const QColor ColorUtils::expert_color_comment    = QColor (0xb7, 0xf7, 0x74);        /* Green */
-const QColor ColorUtils::expert_color_chat       = QColor (0x80, 0xb7, 0xf7);        /* Light blue */
-const QColor ColorUtils::expert_color_note       = QColor (0xa0, 0xff, 0xff);        /* Bright turquoise */
-const QColor ColorUtils::expert_color_warn       = QColor (0xf7, 0xf2, 0x53);        /* Yellow */
-const QColor ColorUtils::expert_color_error      = QColor (0xff, 0x5c, 0x5c);        /* Pale red */
-const QColor ColorUtils::expert_color_foreground = QColor (0x00, 0x00, 0x00);        /* Black */
-const QColor ColorUtils::hidden_proto_item       = QColor (0x44, 0x44, 0x44);        /* Gray */
+const QColor ColorUtils::expert_color_comment    = QColor(0xa6, 0xe3, 0xa1);  /* Green (Mocha) */
+const QColor ColorUtils::expert_color_chat       = QColor(0x89, 0xb4, 0xfa);  /* Blue (Mocha) */
+const QColor ColorUtils::expert_color_note       = QColor(0x94, 0xe2, 0xd5);  /* Teal (Mocha) */
+const QColor ColorUtils::expert_color_warn       = QColor(0xf9, 0xe2, 0xaf);  /* Yellow (Mocha) */
+const QColor ColorUtils::expert_color_error      = QColor(0xf3, 0x8b, 0xa8);  /* Red (Mocha) */
+const QColor ColorUtils::expert_color_foreground = QColor(0xcd, 0xd6, 0xf4);  /* Text (Mocha) */
+const QColor ColorUtils::hidden_proto_item       = QColor(0x58, 0x5b, 0x70);  /* Surface2 (Mocha) */
+
+// 🌑 Base tones
+const QColor ColorUtils::expert_color_ROSEWATER = QColor(0xf5, 0xe0, 0xdc);
+const QColor ColorUtils::expert_color_FLAMINGO  = QColor(0xf2, 0xcd, 0xcd);
+const QColor ColorUtils::expert_color_PINK      = QColor(0xf5, 0xc2, 0xe7);
+const QColor ColorUtils::expert_color_MAUVE     = QColor(0xcba6f7);
+const QColor ColorUtils::expert_color_RED       = QColor(0xf3, 0x8b, 0xa8);
+const QColor ColorUtils::expert_color_MAROON    = QColor(0xeb, 0x93, 0x9a);
+const QColor ColorUtils::expert_color_PEACH     = QColor(0xfa, 0xb3, 0x87);
+const QColor ColorUtils::expert_color_YELLOW    = QColor(0xf9, 0xe2, 0xaf);
+const QColor ColorUtils::expert_color_GREEN     = QColor(0xa6, 0xe3, 0xa1);
+const QColor ColorUtils::expert_color_TEAL      = QColor(0x94, 0xe2, 0xd5);
+const QColor ColorUtils::expert_color_SKY       = QColor(0x89, 0xdc, 0xeb);
+const QColor ColorUtils::expert_color_SAPPHIRE  = QColor(0x74, 0xc7, 0xec);
+const QColor ColorUtils::expert_color_BLUE      = QColor(0x89, 0xb4, 0xfa);
+const QColor ColorUtils::expert_color_LAVENDER  = QColor(0xb4, 0xbe, 0xfe);
+
+// 🌚 Surface / UI
+const QColor ColorUtils::expert_color_TEXT      = QColor(0xcd, 0xd6, 0xf4);
+const QColor ColorUtils::expert_color_SUBTEXT1  = QColor(0xba, 0xc2, 0xde);
+const QColor ColorUtils::expert_color_SUBTEXT0  = QColor(0xa6, 0xad, 0xc8);
+
+const QColor ColorUtils::expert_color_OVERLAY2  = QColor(0x93, 0x99, 0xb2);
+const QColor ColorUtils::expert_color_OVERLAY1  = QColor(0x7f, 0x84, 0x9c);
+const QColor ColorUtils::expert_color_OVERLAY0  = QColor(0x6c, 0x70, 0x86);
+
+const QColor ColorUtils::expert_color_SURFACE2  = QColor(0x58, 0x5b, 0x70);
+const QColor ColorUtils::expert_color_SURFACE1  = QColor(0x45, 0x47, 0x5a);
+const QColor ColorUtils::expert_color_SURFACE0  = QColor(0x31, 0x32, 0x44);
+
+const QColor ColorUtils::expert_color_BASE      = QColor(0x1e, 0x1e, 0x2e);
+const QColor ColorUtils::expert_color_MANTLE    = QColor(0x18, 0x18, 0x28);
+const QColor ColorUtils::expert_color_CRUST     = QColor(0x11, 0x11, 0x1b);
 
 ColorUtils::ColorUtils(QObject *parent) :
     QObject(parent)

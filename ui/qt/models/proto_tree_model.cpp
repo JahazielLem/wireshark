@@ -106,15 +106,15 @@ QVariant ProtoTreeModel::data(const QModelIndex &index, int role) const
         case(0):
             break;
         case(PI_COMMENT):
-            return ColorUtils::expert_color_comment;
+            return ColorUtils::expert_color_GREEN;
         case(PI_CHAT):
-            return ColorUtils::expert_color_chat;
+            return ColorUtils::expert_color_BLUE;
         case(PI_NOTE):
-            return ColorUtils::expert_color_note;
+            return ColorUtils::expert_color_SAPPHIRE;
         case(PI_WARN):
-            return ColorUtils::expert_color_warn;
+            return ColorUtils::expert_color_YELLOW;
         case(PI_ERROR):
-            return ColorUtils::expert_color_error;
+            return ColorUtils::expert_color_RED;
         default:
             ws_warning("Unhandled severity flag: %u", finfo.flag(PI_SEVERITY_MASK));
         }
@@ -126,7 +126,7 @@ QVariant ProtoTreeModel::data(const QModelIndex &index, int role) const
     case Qt::ForegroundRole:
     {
         if (finfo.flag(PI_SEVERITY_MASK)) {
-            return ColorUtils::expert_color_foreground;
+            return ColorUtils::expert_color_CRUST;
         }
         if (finfo.isLink()) {
             return ColorUtils::themeLinkBrush();

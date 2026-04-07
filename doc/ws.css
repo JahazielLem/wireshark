@@ -173,8 +173,8 @@ p.lead { font-size: 1.21875em; line-height: 1.6; }
 div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6, pre, form, p, blockquote, th, td { margin: 0; padding: 0; direction: ltr; }
 
 /* Default Link Styles */
-a { color: #2156a5; text-decoration: underline; line-height: inherit; }
-a:hover, a:focus { color: #1d4b8f; }
+a { color: #89b4fa; text-decoration: underline; line-height: inherit; }
+a:hover, a:focus { color: #89dceb; }
 a img { border: none; }
 
 /* Default paragraph styles */
@@ -183,7 +183,7 @@ p aside { font-size: 0.875em; line-height: 1.35; font-style: italic; }
 
 /* Default header styles */
 h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { font-family: "Lucida Sans Unicode", "Lucida Grande", Helvetica, sans-serif; font-weight: 300; font-style: normal; color: #004698; text-rendering: optimizeLegibility; margin-top: 1em; margin-bottom: 0.5em; line-height: 1.0125em; }
-h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: #3290ff; line-height: 0; }
+h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: #74c7ec; line-height: 0; }
 
 h1 { font-size: 2.125em; }
 
@@ -636,13 +636,13 @@ div.unbreakable { page-break-inside: avoid; }
 
 .line-through { text-decoration: line-through; }
 
-.aqua { color: #00bfbf; }
+.aqua { color: #94e2d5; }
 
 .aqua-background { background-color: #00fafa; }
 
-.black { color: black; }
+.black { color: #11111b; }
 
-.black-background { background-color: black; }
+.black-background { background-color: #11111b; }
 
 .blue { color: #0000bf; }
 

@@ -140,7 +140,7 @@ QVariant ExpertInfoProxyModel::data(const QModelIndex &proxy_index, int role) co
         case(PI_NOTE):
         case(PI_WARN):
         case(PI_ERROR):
-            return QBrush(ColorUtils::expert_color_foreground);
+            return QBrush(ColorUtils::expert_color_BASE);
         }
         }
         break;

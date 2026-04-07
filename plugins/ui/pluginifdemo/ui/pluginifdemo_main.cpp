@@ -70,7 +70,7 @@ PluginIfTypeSortFilterProxyModel::PluginIfTypeSortFilterProxyModel(QObject * par
 void PluginIfTypeSortFilterProxyModel::setFilterElement(ext_toolbar_item_t filterType)
 {
     m_filterType = filterType;
-    invalidateFilter();
+    // invalidateFilter();
 }
 
 bool PluginIfTypeSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
