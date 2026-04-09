@@ -50,14 +50,7 @@
 #include <cli_main.h>
 
 #define PCAP_SNAPLEN 0xffff
-
-#define GRLORA_DEFAULT_HOST           "0.0.0.0"
 #define GRLORA_DEFAULT_HOST_PORT      5009
-#define GRLORA_DEFAULT_REMOTE         "0.0.0.0"
-#define GRLORA_DEFAULT_REMOTE_PORT    5008
-#define GRLORA_DEFAULT_FREQUENCY      916
-#define GRLORA_DEFAULT_BANDWIDTH      250
-#define GRLORA_DEFAULT_SPREAD_FACTOR  7
 
 #define GRLORA_EXTCAP_INTERFACE "grlora"
 #define GRLORA_VERSION_MAJOR "0"
@@ -73,11 +66,6 @@ enum {
 	OPT_HELP,
 	OPT_VERSION,
   OPT_HOST_PORT,
-  OPT_REMOTE_HOST,
-  OPT_REMOTE_PORT,
-	OPT_FREQUENCY, // Center Frequency
-	OPT_BANDWIDTH,
-  OPT_SPREAD_FACTOR
 };
 
 static const struct ws_option longopts[] = {
@@ -87,11 +75,6 @@ static const struct ws_option longopts[] = {
 	{ "version", ws_no_argument, NULL, OPT_VERSION},
 	/* Interfaces options */
 	{ "port", ws_required_argument, NULL, OPT_HOST_PORT},
-  { "remotehost", ws_required_argument, NULL, OPT_REMOTE_HOST},
-	{ "remoteport", ws_required_argument, NULL, OPT_REMOTE_PORT},
-  { "frequency", ws_required_argument, NULL, OPT_FREQUENCY},
-  { "bandwidth", ws_required_argument, NULL, OPT_BANDWIDTH},
-  { "spreadfactor", ws_required_argument, NULL, OPT_SPREAD_FACTOR},
   { 0, 0, 0, 0 }
 };
 
@@ -105,44 +88,6 @@ static int list_config(char *interface) {
   printf("arg {number=%u}{call=--port}{display=Host Server Port RX}"
     "{type=unsigned}{range=1,65535}{default=%u}{tooltip=The port listens on}{group=Server}\n",
     inc++, GRLORA_DEFAULT_HOST_PORT);
-
-  printf("arg {number=%u}{call=--remotehost}{display=Remote GNU Radio Server TX}"
-    "{type=string}{default=%s}{tooltip=The host GNU Radio listens on}{group=Server}\n",
-    inc++, GRLORA_DEFAULT_REMOTE);
-
-  printf("arg {number=%u}{call=--remoteport}{display=GNU Radio Port TX}"
-    "{type=unsigned}{range=1,65535}{default=%u}{tooltip=The port GNU Radio listens on}{group=Server}\n",
-    inc++, GRLORA_DEFAULT_REMOTE_PORT);
-  
-  printf("arg {number=%u}{call=--frequency}{display=GNU Radio Center Frequency (MHz)}"
-    "{type=double}{range=70, 960}{default=%u}{tooltip=The Center Frequency}{group=Radio}\n",
-    inc++, GRLORA_DEFAULT_FREQUENCY);
-  
-  printf("arg {number=%u}{call=--bandwidth}{display=GNU Radio Bandwidth (kHz)}"
-  "{type=selector}{tooltip=The Bandwidth}{group=Radio}\n", inc);
-
-  unsigned idx_bandwidth = inc;
-  inc++;
-  printf("arg {number=%u}{call=--spreadfactor}{display=GNU Radio Port}"
-  "{type=selector}{tooltip=The Spreading Factor}{group=Radio}\n",
-  inc);
-  unsigned idx_spreadfactor = inc;
-  inc++;
-
-  printf("value {arg=%u}{value=7.8}{display=7.8 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=10.4}{display=10.4 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=15.6}{display=15.6 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=20.8}{display=20.8 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=31.25}{display=31.25 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=41.7}{display=41.7 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=62.5}{display=62.5 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=125}{display=125 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=250}{display=250 KHz}\n", idx_bandwidth);
-  printf("value {arg=%u}{value=500}{display=500 KHz}\n", idx_bandwidth);
-
-  for (int i = 6; i < 13; i++) {
-    printf("value {arg=%u}{value=%u}{display=%u}\n", idx_spreadfactor, i, i);
-  }
 
   extcap_config_debug(&inc);
 
@@ -251,8 +196,7 @@ static int dump_packet(const char* buf, const ssize_t buflen, ws_cwstream* fp)
   return ret;
 }
 
-static void run_listener(const char* fifo, const uint16_t  gradio_host_port, const char* gradio_host, const uint16_t  gradio_remote_port,
-      const uint16_t gradio_frequency, const uint16_t gradio_bandwidth, const uint16_t gradio_spreadfactor) {
+static void run_listener(const char* fifo, const uint16_t  gradio_host_port) {
   struct sockaddr_in clientaddr;
   socklen_t clientlen = sizeof(clientaddr);
   socket_handle_t sock;
@@ -318,12 +262,7 @@ int main(int argc, char *argv[]){
 	char* help_header = NULL;
 	char* generic_msg = NULL;
   // GRadio
-  char* gradio_host = NULL;
   uint16_t gradio_host_port = GRLORA_DEFAULT_HOST_PORT;
-  uint16_t gradio_remote_port = GRLORA_DEFAULT_REMOTE_PORT;
-  double gradio_frequency = GRLORA_DEFAULT_FREQUENCY;
-  double gradio_bandwidth = GRLORA_DEFAULT_BANDWIDTH;
-  uint16_t gradio_spreadfactor = GRLORA_DEFAULT_SPREAD_FACTOR;
 
   /* Set the program name. */
   g_set_prgname("grlora");
@@ -333,8 +272,8 @@ int main(int argc, char *argv[]){
 
   init_process_policies();
 
-  // err_msg = configuration_init(argv[0], "grlorashark");
-  err_msg = configuration_init(argv[0], "wireshark");
+  err_msg = configuration_init(argv[0], "grlorashark");
+  // err_msg = configuration_init(argv[0], "wireshark");
   if (err_msg != NULL){
     ws_warning("Cant't get pathname of directory containing the extcap program: %s", err_msg);
     g_free(err_msg);
@@ -360,26 +299,6 @@ int main(int argc, char *argv[]){
   extcap_help_add_option(extcap_conf, "--port <port>", generic_msg);
   g_free(generic_msg);
 
-  generic_msg = ws_strdup_printf("the GNU Radio host listens on. Default: %s", GRLORA_DEFAULT_REMOTE);
-  extcap_help_add_option(extcap_conf, "--remotehost <remotehost>", generic_msg);
-  g_free(generic_msg);
-
-  generic_msg = ws_strdup_printf("the port GNU Radio listens on. Default: %u", GRLORA_DEFAULT_REMOTE_PORT);
-  extcap_help_add_option(extcap_conf, "--remoteport <remoteport>", generic_msg);
-  g_free(generic_msg);
-
-  generic_msg = ws_strdup_printf("the frequency GNU Radio listens on. Default: %u", GRLORA_DEFAULT_FREQUENCY);
-  extcap_help_add_option(extcap_conf, "--frequency <frequency>", generic_msg);
-  g_free(generic_msg);
-
-  generic_msg = ws_strdup_printf("the bandwidth GNU Radio listens on. Default: %u", GRLORA_DEFAULT_BANDWIDTH);
-  extcap_help_add_option(extcap_conf, "--bandwidth <bandwidth>", generic_msg);
-  g_free(generic_msg);
-
-  generic_msg = ws_strdup_printf("the spread factor GNU Radio listens on. Default: %u", GRLORA_DEFAULT_SPREAD_FACTOR);
-  extcap_help_add_option(extcap_conf, "--spreadfactor <spreadfactor>", generic_msg);
-  g_free(generic_msg);
-
   ws_opterr = 0;
   ws_optind = 0;
 
@@ -402,40 +321,6 @@ int main(int argc, char *argv[]){
     case OPT_HOST_PORT:
       if (!ws_strtou16(ws_optarg, NULL, &gradio_host_port)) {
 				ws_warning("Invalid port: %s", ws_optarg);
-				goto end;
-			}
-			break;
-    case OPT_REMOTE_HOST:
-      g_free(gradio_host);
-      gradio_host = g_strdup(ws_optarg);
-      break;
-    case OPT_REMOTE_PORT:
-      if (!ws_strtou16(ws_optarg, NULL, &gradio_remote_port)) {
-				ws_warning("Invalid port: %s", ws_optarg);
-				goto end;
-			}
-			break;
-    case OPT_FREQUENCY:
-      char *endptrfreq = NULL;
-      gradio_frequency = g_ascii_strtod(ws_optarg, &endptrfreq);
-
-      if (endptrfreq == ws_optarg || errno == ERANGE) {
-        ws_warning("Invalid frequency: %s", ws_optarg);
-        goto end;
-      }
-			break;
-    case OPT_BANDWIDTH:
-      char *endptrbw = NULL;
-      gradio_bandwidth = g_ascii_strtod(ws_optarg, &endptrbw);
-
-      if (endptrbw == ws_optarg || errno == ERANGE) {
-        ws_warning("Invalid bandwidth: %s", ws_optarg);
-        goto end;
-      }
-			break;
-    case OPT_SPREAD_FACTOR:
-      if (!ws_strtou16(ws_optarg, NULL, &gradio_spreadfactor)) {
-				ws_warning("Invalid spread factor: %s", ws_optarg);
 				goto end;
 			}
 			break;
@@ -473,10 +358,6 @@ int main(int argc, char *argv[]){
     goto end;
   }
 
-  if (!gradio_host){
-    gradio_host = g_strdup(GRLORA_DEFAULT_REMOTE);
-  }
-
   err_msg = ws_init_sockets();
 	if (err_msg != NULL) {
 		ws_warning("Error: %s", err_msg);
@@ -485,20 +366,12 @@ int main(int argc, char *argv[]){
 		goto end;
 	}
 
-  if (gradio_host_port == 0){ gradio_host_port = GRLORA_DEFAULT_HOST_PORT;}
-  if (gradio_remote_port == 0){ gradio_remote_port = GRLORA_DEFAULT_REMOTE_PORT;}
-  if (gradio_frequency == 0){ gradio_frequency = GRLORA_DEFAULT_FREQUENCY;}
-  if (gradio_bandwidth == 0){ gradio_bandwidth = GRLORA_DEFAULT_BANDWIDTH;}
-  if (gradio_spreadfactor == 0){ gradio_spreadfactor = GRLORA_DEFAULT_SPREAD_FACTOR;}
-
   if (extcap_conf->capture) {
-    run_listener(extcap_conf->fifo, gradio_host_port, gradio_host, gradio_remote_port,
-      gradio_frequency, gradio_bandwidth, gradio_spreadfactor);
+    run_listener(extcap_conf->fifo, gradio_host_port);
   }
 
 end:
   /* Clean up stuff */
   extcap_base_cleanup(&extcap_conf);
-  g_free(gradio_host);
   return ret;
 }
