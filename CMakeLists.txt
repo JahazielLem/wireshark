@@ -2314,6 +2314,7 @@ if (ASCIIDOCTOR_FOUND)
 	list(APPEND DOC_FILES
 		${CMAKE_BINARY_DIR}/doc/man_pages/androiddump.html
 		${CMAKE_BINARY_DIR}/doc/man_pages/udpdump.html
+		${CMAKE_BINARY_DIR}/doc/man_pages/grlora.html
 		${CMAKE_BINARY_DIR}/doc/man_pages/capinfos.html
 		${CMAKE_BINARY_DIR}/doc/man_pages/captype.html
 		${CMAKE_BINARY_DIR}/doc/man_pages/ciscodump.html
@@ -2938,6 +2939,23 @@ if(BUILD_stratoshark AND QT_FOUND)
 	)
 	set_executable_resources(stratoshark "Stratoshark" UNIQUE_RC)
 endif()
+
+if(BUILD_grlorashark AND QT_FOUND)
+	set(GRLORASHARK_SRC
+		file.c
+		fileset.c
+		extcap.c
+		${PLATFORM_UI_SRC}
+		app/grlorashark_flavor.c
+	)
+	set(grlorashark_FILES
+		$<TARGET_OBJECTS:shark_common>
+		${GRLORASHARK_SRC}
+		${PLATFORM_UI_RC_FILES}
+	)
+	set_executable_resources(grlorashark "Grlorashark" UNIQUE_RC)
+endif()
+
 
 if(ENABLE_APPLICATION_BUNDLE)
 	#
@@ -4395,6 +4413,7 @@ set(CLEAN_C_FILES
 	${falcodump_FILES}
 	${dumpcalls_FILES}
 	${udpdump_FILES}
+	${grlora_FILES}
 	${text2pcap_FILES}
 	${mergecap_FILES}
 	${capinfos_FILES}

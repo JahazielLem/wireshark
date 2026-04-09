@@ -100,3 +100,7 @@ class TestExtcaps:
     def test_udpdump(self, check_extcap_execution):
         ''' extcap interface tests for udpdump '''
         check_extcap_execution("udpdump")
+    
+    def test_grlora(self, check_extcap_execution):
+        ''' extcap interface tests for grlora '''
+        check_extcap_execution("grlora")

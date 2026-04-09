@@ -82,6 +82,8 @@ On the _Choose Components_ page of the installer you can select from the followi
 
   - *UDPdump* - Provide capture interface to receive UDP packets streamed from network devices.
 
+  - *Grlora* - Is an extcap tool used for bridge GNU Radio with LoRa capture to Wireshark.
+
 [#ChBuildInstallWinAdditionalTasks]
 
 ==== Additional Tasks
@@ -147,6 +149,7 @@ The following extcap binaries are supported.
 ** `sshdump` - Provide interfaces to capture from a remote host through SSH using a remote capture binary
 
 ** `udpdump` - Provide a UDP receiver that gets packets from network devices
+** `grlora`  - Is an extcap tool used for bridge GNU Radio with LoRa capture to Wireshark.
 
 Example:
 ----

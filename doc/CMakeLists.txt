@@ -61,6 +61,7 @@ ADD_MAN_PAGE(text2pcap   1)
 ADD_MAN_PAGE(dumpcalls   1)
 ADD_MAN_PAGE(falcodump   1)
 ADD_MAN_PAGE(udpdump     1)
+ADD_MAN_PAGE(grlora      1)
 ADD_MAN_PAGE(wifidump    1)
 
 ADD_MAN_PAGE(extcap           4)

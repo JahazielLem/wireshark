@@ -424,6 +424,29 @@ elseif (BUILD_sshdig)
 	#message( WARNING "Cannot find libssh, cannot build sshdig" )
 endif()
 
+if(BUILD_grlora)
+	set(grlora_LIBS
+		wsutil
+		${CMAKE_DL_LIBS}
+		${WIN_WS2_32_LIBRARY}
+		wsutil
+		writecap
+	)
+	set(grlora_FILES
+		$<TARGET_OBJECTS:cli_main>
+		$<TARGET_OBJECTS:extcap-base>
+		grlora.c
+		../app/grlorashark_flavor.c
+	)
+
+	set_executable_resources(grlora "grlora")
+	add_executable(grlora ${grlora_FILES})
+	set_extcap_executable_properties(grlora)
+	target_link_libraries(grlora ${grlora_LIBS})
+	install(TARGETS grlora RUNTIME DESTINATION ${EXTCAP_INSTALL_LIBDIR})
+	add_dependencies(extcaps grlora)
+endif()
+
 #
 # Editor modelines  -  https://www.wireshark.org/tools/modelines.html
 #

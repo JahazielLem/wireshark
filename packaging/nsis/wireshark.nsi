@@ -1280,6 +1280,12 @@ Section /o "UDPdump" SecUDPdump
 SectionEnd
 !insertmacro CheckExtrasFlag "udpdump"
 
+Section /o "Grlora" SecGrlora
+;-------------------------------------------
+  !insertmacro InstallExtcap "grlora"
+SectionEnd
+!insertmacro CheckExtrasFlag "grlora"
+
 SectionGroupEnd ; "External Capture (extcap)"
 
 Section "-Clear Partial Selected"

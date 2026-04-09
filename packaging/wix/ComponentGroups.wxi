@@ -657,6 +657,26 @@
     </ComponentGroup>
   </Fragment>
 
+   <!-- Grlora -->
+  <Fragment>
+    <DirectoryRef Id="dirExtcap">
+      <Component Id="cmpGrlora_exe" Guid="*">
+        <File Id="filGrlora_exe" KeyPath="yes" Source="$(var.Extcap.Dir)\Grlora.exe" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="cmpGrlora_html" Guid="*">
+        <File Id="filGrlora_html" KeyPath="yes" Source="$(var.Staging.Dir)\Grlora.html" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="CG.Tools.Grlora">
+      <ComponentRef Id="cmpGrlora_exe" />
+      <ComponentRef Id="cmpGrlora_html" />
+    </ComponentGroup>
+  </Fragment>
+
   <!-- Shortcuts -->
   <Fragment>
     <ComponentGroup Id="CG.WiresharkStartMenu" Directory="ProgramMenuFolder">
